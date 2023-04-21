@@ -42,7 +42,7 @@ const MainScreen = () => {
   }
 
   return(
-    <div className="h-screen w-screen flex justify-center text-black left-0 top-0 right-0 overflow-hidden">
+    <div className="h-screen w-screen flex justify-center text-black left-0 top-0 right-0 ">
       <div className={`w-full sm:w-1/2 bg-white ${posts.length <= 2 ? 'mt-92': ''} `}>
         <div className="bg-[#7695EC] p-7 text-white rounded-t-lg">
           <TextLg text="CodeLeap Network" />    
