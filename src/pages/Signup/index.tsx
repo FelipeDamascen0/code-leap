@@ -7,7 +7,7 @@ import { setName } from "../../redux/userReducer";
 import { TextLg } from "@/components/TextLg";
 
 
-export const Signup = () => {
+const Signup = () => {
 
   const [userName, setUserName] = useState<string>("");
   const router = useRouter();
@@ -44,3 +44,4 @@ export const Signup = () => {
   );
 }
 
+export default Signup;
