@@ -24,7 +24,7 @@ const Signup = () => {
   }
 
   return(
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-screen w-screen sm:w-1/3 flex justify-center items-center">
       <div className="bg-white text-black p-6 rounded-xl w-[500px]">
         <div>
           <TextLg text="Welcome to CodeLeap network!" />

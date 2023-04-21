@@ -6,6 +6,7 @@ import { addPost } from "@/redux/post";
 import { RootState } from "@/store";
 import { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 
 
 const MainScreen = () => {
@@ -41,8 +42,8 @@ const MainScreen = () => {
   }
 
   return(
-    <div className="h-screen flex justify-center text-black left-0 top-0 right-0">
-      <div className={`w-1/2 bg-white ${posts.length <= 2 ? 'mt-92': ''} `}>
+    <div className="h-screen w-screen flex justify-center text-black left-0 top-0 right-0 overflow-hidden">
+      <div className={`w-full sm:w-1/2 bg-white ${posts.length <= 2 ? 'mt-92': ''} `}>
         <div className="bg-[#7695EC] p-7 text-white rounded-t-lg">
           <TextLg text="CodeLeap Network" />    
         </div>

@@ -79,7 +79,7 @@ export const PostContent = () => {
       {
         posts.map((item) => {
           return(
-            <div key={item.id} className=" m-7 border-2 border-slate-400 rounded-lg">
+            <div key={item.id} className=" m-7 border-2 border-slate-400 rounded-lg overflow-hidden">
               <div className="bg-[#7695EC] flex-1 flex justify-between p-7 text-white w-full rounded-t-md">
                 <TextLg text={item.title} />
                 <div className="flex-1">
@@ -114,12 +114,12 @@ export const PostContent = () => {
           absolute 
           h-screen w-full 
           justify-center 
-          items-center 
+          items-center
           bg-opacity-25 bg-black 
           left-0 right-0 top-0 bottom-0
         `}
       >
-        <div className="bg-white w-1/3 p-6 text-black rounded-lg">
+        <div className="bg-white w-screen sm:w-1/3 p-6 text-black rounded-lg">
           <TextLg text="Are you sure you want to delete this item?" />
 
           <div className="flex justify-end items-end mt-4">
@@ -142,6 +142,7 @@ export const PostContent = () => {
       <div 
         className={`
           ${editPostModal ? 'flex': 'hidden'}
+          ${editPostModal ? 'overflow-hidden': 'hidden'}
           absolute 
           h-screen w-full 
           justify-center 
@@ -150,7 +151,7 @@ export const PostContent = () => {
           left-0 right-0 top-0 bottom-0
         `}
       >
-        <div className="bg-white w-1/3 p-6 text-black rounded-lg">
+        <div className="bg-white w-screen sm:w-1/3 p-6 text-black rounded-lg">
           <TextLg text="Edit item" />
 
           <div>
