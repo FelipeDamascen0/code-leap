@@ -33,7 +33,7 @@ export const Signup = () => {
             Please enter your username
           </p>
 
-          <Form onChange={(event: ChangeEvent<HTMLInputElement>) => handleFormSignUp(event)} placeholder="John Doe" />   
+          <Form onChange={(event: ChangeEvent<HTMLInputElement>) => handleFormSignUp(event)} placeholder="John Doe" value={userName} />   
         </div>
 
         <div className={`flex justify-end items-end pt-5 ${userName.length <= 0 ? 'text-slate-500': ''}`}>
