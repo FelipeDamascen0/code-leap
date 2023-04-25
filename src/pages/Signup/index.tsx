@@ -3,7 +3,7 @@ import { Form } from "@/components/Form";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setName } from "../../redux/userReducer";
+import { setName } from "../../actions/userReducer";
 import { TextLg } from "@/components/TextLg";
 
 
@@ -13,8 +13,9 @@ const Signup = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  function test() {
+  function user() {
     dispatch(setName(userName));
+    localStorage.setItem('userName', userName);
     router.push("/MainScreen");
   }
 
@@ -37,7 +38,7 @@ const Signup = () => {
         </div>
 
         <div className={`flex justify-end items-end pt-5 ${userName.length <= 0 ? 'text-slate-500': ''}`}>
-          <Button onClick={test} text="Enter" disabled={userName.length <= 0} />
+          <Button onClick={user} text="Enter" disabled={userName.length <= 0} />
         </div>
       </div>
     </div>

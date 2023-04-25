@@ -2,18 +2,18 @@ import { useState, ChangeEvent } from "react";
 import { TextLg } from "../TextLg";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
-import { RootState } from "@/store";
+import { RootState } from "@/redux/store";
 import { useSelector, useDispatch } from "react-redux";
-import { deletePostRequest, editPost, editPostRequest } from "@/redux/post"; 
+import { deletePostRequest, editPost, editPostRequest } from "@/actions/post"; 
 import { Form } from "../Form";
 
 
 interface PostClicked {
-  id: number | undefined,
+  id?: number | undefined,
 }
 
 interface EditPost {
-  id: number,
+  id?: number,
   newTitle: string,
   newContent: string
 }
@@ -22,7 +22,6 @@ interface EditPost {
 export const PostContent = () => {
   const [deletePostModal, setDeletePostModal] = useState<boolean>(false);
   const [editPostModal, setEditPostModal] = useState<boolean>(false);
-  const userName = useSelector((state: RootState) => state.user.name);
   const posts = useSelector((state: RootState) => state.post.posts);
   const dispatch = useDispatch();
   const [clickedPost, setClickedPost] = useState<PostClicked>();
@@ -57,16 +56,14 @@ export const PostContent = () => {
   }
 
   function handleEditPost(id: number, newTitle: string, newContent: string) {
-    const now = new Date();
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const hours = now.getHours().toString().padStart(2, '0');
+    const storedUserName = localStorage.getItem('userName'); // recupera o valor armazenado do localStorage
+    console.log(storedUserName)
+
     const editedPost = {
+      created_datetime: new Date().toISOString(),
       id,
-      name: userName,
       title: newTitle,
       content: newContent,
-      minutes: minutes,
-      hours: hours
     };
     setNewTitle('');
     setNewContent('');
@@ -74,15 +71,25 @@ export const PostContent = () => {
     setEditPostModal(false)
   }
 
+  function postedInMinutes(date: string) {
+    const createdDate = new Date(date);
+    const currentDate = new Date();
+    const diffTime = currentDate.getTime() - createdDate.getTime();
+    const diffMinutes = Math.floor(diffTime / (1000 * 60));
+    
+    return diffMinutes.toString()
+  }
+
   return(
-    <div className="bg-white pb-5">
+    <div className="bg-white pb-5 ">
       {
         posts.map((item) => {
+        
           return(
-            <div key={item.id} className=" m-7 border-2 border-slate-400 rounded-lg overflow-hidden">
+            <div key={item.id} className=" m-7 border-2 border-slate-400 rounded-lg ">
               <div className="bg-[#7695EC] flex-1 flex justify-between p-7 text-white w-full rounded-t-md">
                 <TextLg text={item.title} />
-                <div className="flex-1">
+                <div className="flex">
                   <MdOutlineDeleteForever size={30} onClick={() => deletePost(item)} 
                     className="hover:text-gray-400 transition-all duration-500" 
                   />
@@ -94,8 +101,8 @@ export const PostContent = () => {
 
               <div>
                 <div className="flex justify-between px-7 pt-6">
-                  <p className="text-[#777777] font-bold text-lg">@{userName}</p>
-                  <p className="text-[#777777] font-bold text-lg">{item.hours}:{item.minutes}</p>
+                  <p className="text-[#777777] font-bold text-lg">@{item.username}</p>
+                  <p className="text-[#777777] font-bold text-lg">{postedInMinutes(item.created_datetime)} minutes</p>
                 </div>
                 <div className="px-7 py-4">
                   <p className="max-w-full break-words text-black">
@@ -111,7 +118,8 @@ export const PostContent = () => {
       <div 
         className={`
           ${deletePostModal ? 'flex': 'hidden'}
-          absolute 
+          fixed
+          overflow-hidden 
           h-screen w-full 
           justify-center 
           items-center
@@ -143,7 +151,8 @@ export const PostContent = () => {
         className={`
           ${editPostModal ? 'flex': 'hidden'}
           ${editPostModal ? 'overflow-hidden': 'hidden'}
-          absolute 
+          fixed
+           
           h-screen w-full 
           justify-center 
           items-center 
