@@ -6,6 +6,7 @@ import { RootState } from "@/redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { deletePostRequest, editPost, editPostRequest } from "@/actions/post"; 
 import { Form } from "../Form";
+import axios from 'axios';
 
 
 interface PostClicked {
@@ -57,17 +58,17 @@ export const PostContent = () => {
 
   function handleEditPost(id: number, newTitle: string, newContent: string) {
     const storedUserName = localStorage.getItem('userName'); // recupera o valor armazenado do localStorage
-    console.log(storedUserName)
 
     const editedPost = {
       created_datetime: new Date().toISOString(),
       id,
+      username: storedUserName,
       title: newTitle,
       content: newContent,
     };
+    dispatch(editPostRequest(editedPost))
     setNewTitle('');
     setNewContent('');
-    dispatch(editPostRequest(editedPost));
     setEditPostModal(false)
   }
 

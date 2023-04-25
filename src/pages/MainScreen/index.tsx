@@ -7,6 +7,7 @@ import { RootState } from "@/redux/store";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
+import Head from "next/head";
 
 
 const MainScreen = () => {
@@ -64,7 +65,6 @@ const MainScreen = () => {
       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight) {
         setOffSet(offset + limit)
-        console.log(offset)
         axios.get(`https://dev.codeleap.co.uk/careers/?limit=${limit}&offset=${offset}`)
         .then(({data}) => {
           data.results.forEach((post: Post) => {
